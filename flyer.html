@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rose:#d16a8e; --rose-deep:#7a2f4f; --gold:#c99a4e; --gold-soft:#e6c98a;
+    --cream:#fdf7f2; --cream-2:#f7e9df; --ink:#3a2b30; --ink-soft:#6b5a60;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#ccc}
+  .page{
+    width:148mm;height:210mm;overflow:hidden;position:relative;
+    background:
+      radial-gradient(120% 60% at 100% 0%, #fbeef0 0%, rgba(251,238,240,0) 55%),
+      radial-gradient(110% 55% at 0% 100%, #faf0e2 0%, rgba(250,240,226,0) 55%),
+      var(--cream);
+    font-family:'Poppins',sans-serif;color:var(--ink);
+  }
+  /* decorative corner arcs */
+  .arc{position:absolute;border-radius:50%;pointer-events:none}
+  .arc.tl{top:-70mm;left:-45mm;width:110mm;height:110mm;
+    background:radial-gradient(circle at 60% 60%, rgba(209,106,142,.18), rgba(209,106,142,0) 70%)}
+  .arc.br{bottom:-70mm;right:-45mm;width:120mm;height:120mm;
+    background:radial-gradient(circle at 40% 40%, rgba(201,154,78,.18), rgba(201,154,78,0) 70%)}
+
+  .inner{position:relative;z-index:2;height:100%;padding:5.5mm 10mm 5mm;display:flex;flex-direction:column}
+  .inner > *{flex-shrink:0}
+
+  /* ---- header ---- */
+  header{text-align:center}
+  header img.logo{height:31mm;object-fit:contain;margin:0 auto;display:block}
+  .rule{display:flex;align-items:center;justify-content:center;gap:2mm;margin:.2mm 0 1.8mm}
+  .rule::before,.rule::after{content:"";height:.4mm;width:20mm;background:linear-gradient(90deg,transparent,var(--gold-soft))}
+  .rule::after{transform:scaleX(-1)}
+  .rule span{font-size:3.2mm;color:var(--ink-soft);font-weight:500;font-style:italic;font-family:'Playfair Display',serif}
+
+  /* ---- trust badges ---- */
+  .badges{display:flex;justify-content:center;gap:2.2mm;margin-bottom:1.8mm;flex-wrap:wrap}
+  .badge{display:flex;align-items:center;gap:1.3mm;font-size:2.65mm;font-weight:600;color:var(--rose-deep);
+    background:#fff;border:.3mm solid #f0dfe6;border-radius:20mm;padding:1.3mm 3mm;box-shadow:0 1mm 2.4mm rgba(122,47,79,.05)}
+  .badge .bic{color:var(--gold);font-size:2.9mm;line-height:1}
+
+  .headline{text-align:center;font-family:'Playfair Display',serif;font-size:4.6mm;line-height:1.22;
+    color:var(--ink);font-weight:600;margin:0 4mm 1.6mm}
+  .headline b{color:var(--rose)}
+
+  /* ---- services ---- */
+  .svc{display:grid;grid-template-columns:1fr 1fr;gap:2mm;margin-bottom:1.6mm}
+  .card{background:#fff;border:.3mm solid #f0dfe6;border-radius:3.4mm;padding:2.5mm 3.4mm;
+    box-shadow:0 1.4mm 4mm rgba(122,47,79,.06)}
+  .card h3{font-family:'Playfair Display',serif;font-size:3.9mm;color:var(--rose-deep);margin-bottom:1.2mm;
+    display:flex;align-items:center;gap:1.8mm}
+  .dot{width:3.4mm;height:3.4mm;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--gold));flex:none}
+  .card p{font-size:2.85mm;line-height:1.42;color:var(--ink-soft)}
+  .card .price{display:inline-block;margin-top:1.2mm;font-weight:600;color:var(--gold);font-size:3mm}
+
+  /* ---- why us ---- */
+  .why{background:linear-gradient(135deg,#fbeef1,#f8ecdd);border-radius:3.4mm;padding:2.4mm 4.4mm;margin-bottom:1.6mm}
+  .why h4{font-family:'Playfair Display',serif;font-size:3.6mm;color:var(--rose-deep);text-align:center;margin-bottom:1.8mm}
+  .why ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:1.4mm 3mm}
+  .why li{font-size:2.8mm;color:var(--ink);display:flex;align-items:center;gap:1.6mm;font-weight:500}
+  .why li::before{content:"✓";display:inline-flex;align-items:center;justify-content:center;
+    width:3.6mm;height:3.6mm;border-radius:50%;background:var(--rose);color:#fff;font-size:2.4mm;font-weight:700;flex:none}
+
+  /* ---- offer ---- */
+  .offer{text-align:center;background:linear-gradient(135deg,var(--rose-deep),var(--rose));color:#fff;
+    border-radius:3.4mm;padding:2.5mm 4mm;margin-bottom:1.8mm;position:relative;overflow:hidden}
+  .offer::after{content:"";position:absolute;right:-8mm;top:-8mm;width:24mm;height:24mm;border-radius:50%;
+    background:rgba(255,255,255,.10)}
+  .offer .big{font-family:'Playfair Display',serif;font-size:4.6mm;font-weight:700}
+  .offer .big em{color:var(--gold-soft);font-style:normal}
+  .offer .sub{font-size:2.7mm;opacity:.92;margin-top:.6mm}
+
+  /* ---- footer/contact ---- */
+  .foot{margin-top:auto;display:flex;align-items:center;gap:4mm;
+    border-top:.4mm solid #eeddd2;padding-top:2.4mm}
+  .foot .qr{width:26mm;height:26mm;border-radius:2.4mm;background:#fff;padding:1.6mm;
+    box-shadow:0 1mm 3mm rgba(0,0,0,.08);flex:none}
+  .foot .qr img{width:100%;height:100%;display:block}
+  .contact{flex:1}
+  .contact .book{font-family:'Playfair Display',serif;font-size:3.9mm;color:var(--rose-deep);font-weight:700;margin-bottom:1.4mm}
+  .contact .row{display:flex;align-items:center;gap:2mm;font-size:3mm;color:var(--ink);margin:.9mm 0;font-weight:500}
+  .contact .row .ic{width:4.6mm;height:4.6mm;border-radius:50%;background:#f4e3ea;color:var(--rose-deep);
+    display:inline-flex;align-items:center;justify-content:center;font-size:2.6mm;flex:none}
+  .contact .web{color:var(--gold);font-weight:600}
+  .wa{display:inline-flex;align-items:center;gap:1mm;background:#e7f6ec;color:#1f7a43;font-size:2.3mm;
+    font-weight:600;padding:.4mm 1.6mm;border-radius:10mm;margin-left:1.4mm}
+  .wa .wic{font-size:2.5mm}
+  .scan{font-size:2.5mm;color:var(--ink-soft);text-align:center;margin-top:.8mm;font-weight:500}
+  .area{text-align:center;font-size:2.6mm;color:var(--ink-soft);margin-top:1.8mm;letter-spacing:.3mm}
+  .area b{color:var(--rose-deep)}
+  .tag-strip{text-align:center;margin-top:1.3mm;font-size:2.9mm;font-weight:700;letter-spacing:.9mm;
+    color:var(--rose-deep);text-transform:uppercase}
+  .tag-strip span{color:var(--gold);margin:0 1mm}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="arc tl"></div>
+  <div class="arc br"></div>
+  <div class="inner">
+    <header>
+      <img class="logo" src="assets/logo.png" alt="Izzy Nest Cleaning">
+    </header>
+
+    <div class="rule"><span>Where Every Home Shines</span></div>
+
+    <div class="badges">
+      <div class="badge"><span class="bic">🛡</span>Fully Insured</div>
+      <div class="badge"><span class="bic">✓</span>No Contracts</div>
+      <div class="badge"><span class="bic">🔒</span>Secure Payments</div>
+    </div>
+
+    <div class="headline">Professional home cleaning you can <b>trust</b>, across Manchester &amp; Salford.</div>
+
+    <div class="svc">
+      <div class="card">
+        <h3><span class="dot"></span>Regular Cleaning</h3>
+        <p>Weekly, fortnightly or monthly cleans — dusting, vacuuming, kitchens &amp; bathrooms.</p>
+        <span class="price">From £40 per clean</span>
+      </div>
+      <div class="card">
+        <h3><span class="dot"></span>Deep Cleans</h3>
+        <p>One-off top-to-bottom cleans. Bronze, Silver &amp; Gold packages.</p>
+        <span class="price">From £45</span>
+      </div>
+      <div class="card">
+        <h3><span class="dot"></span>Add-On Extras</h3>
+        <p>Oven, fridge/freezer, windows, ironing &amp; more — add what you need.</p>
+        <span class="price">Oven from £50</span>
+      </div>
+      <div class="card">
+        <h3><span class="dot"></span>End of Tenancy</h3>
+        <p>Detailed deep cleans to help you secure your deposit back.</p>
+        <span class="price">Ask for a quote</span>
+      </div>
+    </div>
+
+    <div class="why">
+      <h4>Why Choose Izzy Nest?</h4>
+      <ul>
+        <li>No contracts, cancel anytime</li>
+        <li>Friendly, reliable cleaners</li>
+        <li>100% satisfaction guarantee</li>
+        <li>Bank transfer &amp; card accepted</li>
+      </ul>
+    </div>
+
+    <div class="offer">
+      <div class="big">Refer a friend &amp; you <em>both</em> get £10 off</div>
+      <div class="sub">Love our service? Share it — and save together.</div>
+    </div>
+
+    <div class="foot">
+      <div class="qr"><img src="assets/qr.png" alt="Scan to book"></div>
+      <div class="contact">
+        <div class="book">Book Your Clean Today</div>
+        <div class="row"><span class="ic">✆</span>+44 7388 582981<span class="wa"><span class="wic">✆</span>WhatsApp</span></div>
+        <div class="row"><span class="ic">◍</span><span class="web">izzynestcleaning.com</span></div>
+        <div class="row"><span class="ic">◎</span>@izzynestcleaning</div>
+        <div class="scan">← Scan to book instantly at izzynestcleaning.com</div>
+      </div>
+    </div>
+
+    <div class="area">Proudly serving <b>Manchester City Centre, Salford &amp; surrounding areas</b></div>
+    <div class="tag-strip">Local<span>•</span>Reliable<span>•</span>Professional</div>
+  </div>
+</div>
+</body>
+</html>
